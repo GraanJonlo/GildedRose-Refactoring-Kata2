@@ -78,7 +78,7 @@ public class ConjuredItem(Item item) : ShopItem(item)
     {
         Item.SellIn--;
 
-        DecreaseQuality(2);
+        DecreaseQuality(Item.SellIn < 0 ? 4 : 2);
     }
 }
 

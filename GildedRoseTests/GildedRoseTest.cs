@@ -79,6 +79,18 @@ public class ConjuredItemTests
 
         Assert.That(item.Quality, Is.EqualTo(0));
     }
+
+    [TestCase(8, 4)]
+    [TestCase(4, 0)]
+    public void ItShouldDecreaseQualityTwiceAsFastAfterSellIn(int initialQuality, int expectedQuality)
+    {
+        Item item = new Item { Name = "Conjured", SellIn = 0, Quality = initialQuality };
+
+        GildedRose gildedRose = new GildedRose(new List<Item> { item });
+        gildedRose.UpdateQuality();
+
+        Assert.That(item.Quality, Is.EqualTo(expectedQuality));
+    }
 }
 
 public class GildedRoseTest

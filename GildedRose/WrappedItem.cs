@@ -1,4 +1,6 @@
-﻿namespace GildedRoseKata;
+﻿using System;
+
+namespace GildedRoseKata;
 
 public abstract class ShopItem(Item item)
 {
@@ -15,12 +17,9 @@ public abstract class ShopItem(Item item)
 
     protected readonly Item Item = item;
 
-    protected void IncreaseQuality()
+    protected void IncreaseQuality(int amount = 1)
     {
-        if (Item.Quality < 50)
-        {
-            Item.Quality++;
-        }
+        Item.Quality = Math.Min(50, Item.Quality + amount);
     }
 }
 
@@ -30,15 +29,7 @@ public class AgedBrie(Item item) : ShopItem(item)
     {
         Item.SellIn--;
 
-        if (Item.SellIn >= 0)
-        {
-            IncreaseQuality();
-        }
-        else
-        {
-            IncreaseQuality();
-            IncreaseQuality();
-        }
+        IncreaseQuality(Item.SellIn >= 0 ? 1 : 2);
     }
 }
 

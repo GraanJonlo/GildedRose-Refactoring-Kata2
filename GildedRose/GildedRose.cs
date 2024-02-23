@@ -2,12 +2,23 @@
 
 namespace GildedRoseKata;
 
+public class WrappedItem
+{
+    public readonly Item _item;
+
+    public WrappedItem(Item item)
+    {
+        _item = item;
+    }
+}
+
 public class GildedRose(IList<Item> items)
 {
     public void UpdateQuality()
     {
         foreach (var item in items)
         {
+            WrappedItem wrappedItem = new(item);
             UpdateItem(item);
         }
     }

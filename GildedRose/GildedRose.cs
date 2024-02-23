@@ -8,8 +8,8 @@ public class GildedRose(IList<Item> items)
     {
         foreach (var item in items)
         {
-            ShopItem wrappedItem = ShopItem.From(item);
-            wrappedItem.UpdateItem();
+            ShopItem shopItem = ShopItem.From(item);
+            shopItem.UpdateItem();
         }
     }
 }

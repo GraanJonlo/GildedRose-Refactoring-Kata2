@@ -42,6 +42,31 @@ Just for clarification, an item can never have its Quality increase above 50, ho
 a legendary item and as such its Quality is 80, and it never alters.
  */
 
+public class SulfurasTests
+{
+    [Test]
+    public void ItShouldNotDecreaseSellIn()
+    {
+        Item item = new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 10, Quality = 80 };
+
+        GildedRose gildedRose = new GildedRose(new List<Item> { item });
+        gildedRose.UpdateQuality();
+
+        Assert.That(item.SellIn, Is.EqualTo(10));
+    }
+
+    [Test]
+    public void ItShouldNotDecreaseQuality()
+    {
+        Item item = new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 10, Quality = 80 };
+
+        GildedRose gildedRose = new GildedRose(new List<Item> { item });
+        gildedRose.UpdateQuality();
+
+        Assert.That(item.Quality, Is.EqualTo(80));
+    }
+}
+
 public class GildedRoseTest
 {
     [Test]

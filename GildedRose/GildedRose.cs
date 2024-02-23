@@ -2,18 +2,11 @@
 
 namespace GildedRoseKata;
 
-public class GildedRose
+public class GildedRose(IList<Item> items)
 {
-    private readonly IList<Item> _items;
-
-    public GildedRose(IList<Item> items)
-    {
-        _items = items;
-    }
-
     public void UpdateQuality()
     {
-        foreach (var item in _items)
+        foreach (var item in items)
         {
             UpdateItem(item);
         }

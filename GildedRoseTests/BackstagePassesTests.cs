@@ -55,10 +55,11 @@ public class BackstagePassesTests
         Assert.That(item.Quality, Is.EqualTo(3));
     }
 
-    [Test]
-    public void ItShouldDropQualityToZeroAfterTheConcert()
+    [TestCase(0)]
+    [TestCase(-1)]
+    public void ItShouldDropQualityToZeroAfterTheConcert(int initialSellIn)
     {
-        Item item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 50 };
+        Item item = new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = initialSellIn, Quality = 50 };
 
         GildedRose gildedRose = new GildedRose(new List<Item> { item });
         gildedRose.UpdateQuality();

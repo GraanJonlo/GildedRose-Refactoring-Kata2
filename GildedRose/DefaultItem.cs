@@ -11,7 +11,7 @@ public abstract class ShopItem(Item item)
             "Aged Brie" => new AgedBrie(item),
             "Backstage passes to a TAFKAL80ETC concert" => new BackstagePasses(item),
             "Sulfuras, Hand of Ragnaros" => new Sulfuras(item),
-            _ => new WrappedItem(item)
+            _ => new DefaultItem(item)
         };
     }
 
@@ -66,7 +66,7 @@ public class Sulfuras(Item item) : ShopItem(item)
     }
 }
 
-public class WrappedItem(Item item) : ShopItem(item)
+public class DefaultItem(Item item) : ShopItem(item)
 {
     public override void UpdateItem()
     {

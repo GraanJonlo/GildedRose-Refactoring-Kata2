@@ -42,6 +42,22 @@ Just for clarification, an item can never have its Quality increase above 50, ho
 a legendary item and as such its Quality is 80, and it never alters.
  */
 
+public class AgedBrieTests
+{
+    [TestCase(2,1)]
+    [TestCase(1,0)]
+    [TestCase(0, -1)]
+    public void ItShouldDecreaseSellIn(int initialSellIn, int expectedSellIn)
+    {
+        Item item = new Item { Name = "Aged Brie", SellIn = initialSellIn, Quality = 0 };
+
+        GildedRose gildedRose = new GildedRose(new List<Item> { item });
+        gildedRose.UpdateQuality();
+
+        Assert.That(item.SellIn, Is.EqualTo(expectedSellIn));
+    }
+}
+
 public class GildedRoseTest
 {
     [Test]

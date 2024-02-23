@@ -38,26 +38,22 @@ public class BackstagePasses(Item item) : ShopItem(item)
 {
     public override void UpdateItem()
     {
-        if (Item.Quality < 50)
-        {
-            Item.Quality++;
-
-            if (Item.SellIn < 11)
-            {
-                IncreaseQuality();
-            }
-
-            if (Item.SellIn < 6)
-            {
-                IncreaseQuality();
-            }
-        }
-
         Item.SellIn--;
 
         if (Item.SellIn < 0)
         {
-            Item.Quality -= Item.Quality;
+            Item.Quality = 0;
+        }
+        else
+        {
+            int amountToIncreaseQuality = Item.SellIn switch
+            {
+                < 5 => 3,
+                < 10 => 2,
+                _ => 1
+            };
+
+            IncreaseQuality(amountToIncreaseQuality);
         }
     }
 }

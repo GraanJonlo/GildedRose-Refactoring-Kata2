@@ -4,17 +4,7 @@ public class WrappedItem(Item item)
 {
     public void UpdateItem()
     {
-        if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
-        {
-            if (item.Quality > 0)
-            {
-                if (item.Name != "Sulfuras, Hand of Ragnaros")
-                {
-                    item.Quality--;
-                }
-            }
-        }
-        else
+        if (item.Name == "Aged Brie" || item.Name == "Backstage passes to a TAFKAL80ETC concert")
         {
             if (item.Quality < 50)
             {
@@ -34,34 +24,48 @@ public class WrappedItem(Item item)
                 }
             }
         }
+        else
+        {
+            if (item.Quality > 0)
+            {
+                if (item.Name == "Sulfuras, Hand of Ragnaros")
+                {
+                }
+                else
+                {
+                    item.Quality--;
+                }
+            }
+        }
 
-        if (item.Name != "Sulfuras, Hand of Ragnaros")
+        if (item.Name == "Sulfuras, Hand of Ragnaros")
+        {
+        }
+        else
         {
             item.SellIn--;
         }
 
         if (item.SellIn < 0)
         {
-            if (item.Name != "Aged Brie")
+            if (item.Name == "Aged Brie")
             {
-                if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (item.Quality > 0)
-                    {
-                        if (item.Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            item.Quality--;
-                        }
-                    }
-                }
-                else
-                {
-                    item.Quality -= item.Quality;
-                }
+                IncreaseQuality();
             }
             else
             {
-                IncreaseQuality();
+                if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                {
+                    item.Quality -= item.Quality;
+                }
+                else
+                {
+                    if (item.Quality > 0)
+                    {
+                        if (item.Name == "Sulfuras, Hand of Ragnaros") return;
+                        item.Quality--;
+                    }
+                }
             }
         }
     }

@@ -28,12 +28,15 @@ public class AgedBrie(Item item) : ShopItem(item)
 {
     public override void UpdateItem()
     {
-        IncreaseQuality();
-
         Item.SellIn--;
 
-        if (Item.SellIn < 0)
+        if (Item.SellIn >= 0)
         {
+            IncreaseQuality();
+        }
+        else
+        {
+            IncreaseQuality();
             IncreaseQuality();
         }
     }

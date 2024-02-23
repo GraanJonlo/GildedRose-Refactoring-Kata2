@@ -8,7 +8,7 @@ public class GildedRose(IList<Item> items)
     {
         foreach (var item in items)
         {
-            WrappedItem wrappedItem = new(item);
+            ShopItem wrappedItem = ShopItem.From(item);
             wrappedItem.UpdateItem();
         }
     }

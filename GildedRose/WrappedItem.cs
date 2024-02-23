@@ -1,36 +1,49 @@
 ﻿namespace GildedRoseKata;
 
-public class WrappedItem(Item item)
+public abstract class ShopItem(Item item)
+{
+    protected readonly Item Item = item;
+
+    protected void IncreaseQuality()
+    {
+        if (Item.Quality < 50)
+        {
+            Item.Quality++;
+        }
+    }
+}
+
+public class WrappedItem(Item item) : ShopItem(item)
 {
     public void UpdateItem()
     {
-        if (item.Name == "Aged Brie")
+        if (Item.Name == "Aged Brie")
         {
             IncreaseQuality();
 
-            item.SellIn--;
+            Item.SellIn--;
 
-            if (item.SellIn < 0)
+            if (Item.SellIn < 0)
             {
                 IncreaseQuality();
             }
         }
         else
         {
-            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+            if (Item.Name == "Backstage passes to a TAFKAL80ETC concert")
             {
-                if (item.Quality < 50)
+                if (Item.Quality < 50)
                 {
-                    item.Quality++;
+                    Item.Quality++;
 
-                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                    if (Item.Name == "Backstage passes to a TAFKAL80ETC concert")
                     {
-                        if (item.SellIn < 11)
+                        if (Item.SellIn < 11)
                         {
                             IncreaseQuality();
                         }
 
-                        if (item.SellIn < 6)
+                        if (Item.SellIn < 6)
                         {
                             IncreaseQuality();
                         }
@@ -39,49 +52,41 @@ public class WrappedItem(Item item)
             }
             else
             {
-                if (item.Quality > 0)
+                if (Item.Quality > 0)
                 {
-                    if (item.Name == "Sulfuras, Hand of Ragnaros")
+                    if (Item.Name == "Sulfuras, Hand of Ragnaros")
                     {
                     }
                     else
                     {
-                        item.Quality--;
+                        Item.Quality--;
                     }
                 }
             }
 
-            if (item.Name == "Sulfuras, Hand of Ragnaros")
+            if (Item.Name == "Sulfuras, Hand of Ragnaros")
             {
             }
             else
             {
-                item.SellIn--;
+                Item.SellIn--;
             }
 
-            if (item.SellIn < 0)
+            if (Item.SellIn < 0)
             {
-                if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                if (Item.Name == "Backstage passes to a TAFKAL80ETC concert")
                 {
-                    item.Quality -= item.Quality;
+                    Item.Quality -= Item.Quality;
                 }
                 else
                 {
-                    if (item.Quality > 0)
+                    if (Item.Quality > 0)
                     {
-                        if (item.Name == "Sulfuras, Hand of Ragnaros") return;
-                        item.Quality--;
+                        if (Item.Name == "Sulfuras, Hand of Ragnaros") return;
+                        Item.Quality--;
                     }
                 }
             }
-        }
-    }
-
-    private void IncreaseQuality()
-    {
-        if (item.Quality < 50)
-        {
-            item.Quality++;
         }
     }
 }

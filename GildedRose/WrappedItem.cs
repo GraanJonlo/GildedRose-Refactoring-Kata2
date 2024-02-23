@@ -62,31 +62,24 @@ public class WrappedItem(Item item) : ShopItem(item)
 {
     public override void UpdateItem()
     {
-        if (Item.Quality > 0)
-        {
-            if (Item.Name == "Sulfuras, Hand of Ragnaros")
-            {
-            }
-            else
-            {
-                Item.Quality--;
-            }
-        }
-
         if (Item.Name == "Sulfuras, Hand of Ragnaros")
         {
         }
         else
         {
-            Item.SellIn--;
-        }
-
-        if (Item.SellIn < 0)
-        {
             if (Item.Quality > 0)
             {
-                if (Item.Name == "Sulfuras, Hand of Ragnaros") return;
                 Item.Quality--;
+            }
+
+            Item.SellIn--;
+
+            if (Item.SellIn < 0)
+            {
+                if (Item.Quality > 0)
+                {
+                    Item.Quality--;
+                }
             }
         }
     }

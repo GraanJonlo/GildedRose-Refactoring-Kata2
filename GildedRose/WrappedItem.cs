@@ -10,6 +10,7 @@ public abstract class ShopItem(Item item)
         {
             "Aged Brie" => new AgedBrie(item),
             "Backstage passes to a TAFKAL80ETC concert" => new BackstagePasses(item),
+            "Sulfuras, Hand of Ragnaros" => new Sulfuras(item),
             _ => new WrappedItem(item)
         };
     }
@@ -58,28 +59,29 @@ public class BackstagePasses(Item item) : ShopItem(item)
     }
 }
 
+public class Sulfuras(Item item) : ShopItem(item)
+{
+    public override void UpdateItem()
+    {
+    }
+}
+
 public class WrappedItem(Item item) : ShopItem(item)
 {
     public override void UpdateItem()
     {
-        if (Item.Name == "Sulfuras, Hand of Ragnaros")
+        if (Item.Quality > 0)
         {
+            Item.Quality--;
         }
-        else
+
+        Item.SellIn--;
+
+        if (Item.SellIn < 0)
         {
             if (Item.Quality > 0)
             {
                 Item.Quality--;
-            }
-
-            Item.SellIn--;
-
-            if (Item.SellIn < 0)
-            {
-                if (Item.Quality > 0)
-                {
-                    Item.Quality--;
-                }
             }
         }
     }

@@ -70,19 +70,21 @@ public class DefaultItem(Item item) : ShopItem(item)
 {
     public override void UpdateItem()
     {
-        if (Item.Quality > 0)
-        {
-            Item.Quality--;
-        }
+        DecreaseQuality();
 
         Item.SellIn--;
 
         if (Item.SellIn < 0)
         {
-            if (Item.Quality > 0)
-            {
-                Item.Quality--;
-            }
+            DecreaseQuality();
+        }
+    }
+
+    private void DecreaseQuality()
+    {
+        if (Item.Quality > 0)
+        {
+            Item.Quality--;
         }
     }
 }

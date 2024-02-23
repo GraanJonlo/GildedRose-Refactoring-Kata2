@@ -1,5 +1,5 @@
-﻿using GildedRose.Rules;
-using GildedRoseKata;
+﻿using GildedRoseKata;
+using GildedRoseKata.Rules;
 using NUnit.Framework;
 
 namespace GildedRoseTests.Rules;

@@ -1,22 +1,30 @@
 ﻿using System;
+using GildedRoseKata.Rules;
 
 namespace GildedRoseKata;
 
-public abstract class ShopItem(Item item)
+public abstract class ShopItem(Item item, IAgeRule ageRule)
 {
     public static ShopItem From(Item item)
     {
         return item.Name switch
         {
-            "Aged Brie" => new AgedBrie(item),
-            "Backstage passes to a TAFKAL80ETC concert" => new BackstagePasses(item),
-            "Sulfuras, Hand of Ragnaros" => new Sulfuras(item),
-            "Conjured" => new ConjuredItem(item),
-            _ => new DefaultItem(item)
+            "Aged Brie" => new AgedBrie(item, new StandardAgeRule()),
+            "Backstage passes to a TAFKAL80ETC concert" => new BackstagePasses(item, new StandardAgeRule()),
+            "Sulfuras, Hand of Ragnaros" => new Sulfuras(item, new DoesNotAgeRule()),
+            "Conjured" => new ConjuredItem(item, new StandardAgeRule()),
+            _ => new DefaultItem(item, new StandardAgeRule())
         };
     }
 
-    public abstract void UpdateItem();
+    public void UpdateItem()
+    {
+        ageRule.ApplyTo(Item);
+
+        AdjustQuality();
+    }
+
+    protected abstract void AdjustQuality();
 
     protected readonly Item Item = item;
 
@@ -31,22 +39,18 @@ public abstract class ShopItem(Item item)
     }
 }
 
-public class AgedBrie(Item item) : ShopItem(item)
+public class AgedBrie(Item item, IAgeRule ageRule) : ShopItem(item, ageRule)
 {
-    public override void UpdateItem()
+    protected override void AdjustQuality()
     {
-        Item.SellIn--;
-
         IncreaseQuality(Item.SellIn >= 0 ? 1 : 2);
     }
 }
 
-public class BackstagePasses(Item item) : ShopItem(item)
+public class BackstagePasses(Item item, IAgeRule ageRule) : ShopItem(item, ageRule)
 {
-    public override void UpdateItem()
+    protected override void AdjustQuality()
     {
-        Item.SellIn--;
-
         if (Item.SellIn < 0)
         {
             Item.Quality = 0;
@@ -65,29 +69,25 @@ public class BackstagePasses(Item item) : ShopItem(item)
     }
 }
 
-public class Sulfuras(Item item) : ShopItem(item)
+public class Sulfuras(Item item, IAgeRule ageRule) : ShopItem(item, ageRule)
 {
-    public override void UpdateItem()
+    protected override void AdjustQuality()
     {
     }
 }
 
-public class ConjuredItem(Item item) : ShopItem(item)
+public class ConjuredItem(Item item, IAgeRule ageRule) : ShopItem(item, ageRule)
 {
-    public override void UpdateItem()
+    protected override void AdjustQuality()
     {
-        Item.SellIn--;
-
         DecreaseQuality(Item.SellIn < 0 ? 4 : 2);
     }
 }
 
-public class DefaultItem(Item item) : ShopItem(item)
+public class DefaultItem(Item item, IAgeRule ageRule) : ShopItem(item, ageRule)
 {
-    public override void UpdateItem()
+    protected override void AdjustQuality()
     {
-        Item.SellIn--;
-
         DecreaseQuality(Item.SellIn < 0 ? 2 : 1);
     }
 }

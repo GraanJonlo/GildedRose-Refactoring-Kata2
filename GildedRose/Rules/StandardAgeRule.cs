@@ -1,6 +1,4 @@
-﻿using GildedRoseKata;
-
-namespace GildedRose.Rules;
+﻿namespace GildedRoseKata.Rules;
 
 public class StandardAgeRule : IAgeRule
 {

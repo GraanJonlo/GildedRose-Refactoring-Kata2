@@ -6,10 +6,7 @@ public class WrappedItem(Item item)
     {
         if (item.Name == "Aged Brie")
         {
-            if (item.Quality < 50)
-            {
-                item.Quality++;
-            }
+            IncreaseQuality();
 
             item.SellIn--;
 

@@ -23,6 +23,11 @@ public abstract class ShopItem(Item item)
     {
         Item.Quality = Math.Min(50, Item.Quality + amount);
     }
+
+    protected void DecreaseQuality(int amount = 1)
+    {
+        Item.Quality = Math.Max(0, Item.Quality - amount);
+    }
 }
 
 public class AgedBrie(Item item) : ShopItem(item)
@@ -73,10 +78,5 @@ public class DefaultItem(Item item) : ShopItem(item)
         Item.SellIn--;
 
         DecreaseQuality(Item.SellIn < 0 ? 2 : 1);
-    }
-
-    private void DecreaseQuality(int amount = 1)
-    {
-        Item.Quality = Math.Max(0, Item.Quality - amount);
     }
 }

@@ -43,18 +43,22 @@ public class WrappedItem(Item item) : ShopItem(item)
             {
                 Item.Quality++;
 
-                if (Item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                if (Item.SellIn < 11)
                 {
-                    if (Item.SellIn < 11)
-                    {
-                        IncreaseQuality();
-                    }
-
-                    if (Item.SellIn < 6)
-                    {
-                        IncreaseQuality();
-                    }
+                    IncreaseQuality();
                 }
+
+                if (Item.SellIn < 6)
+                {
+                    IncreaseQuality();
+                }
+            }
+
+            Item.SellIn--;
+
+            if (Item.SellIn < 0)
+            {
+                Item.Quality -= Item.Quality;
             }
         }
         else
@@ -69,23 +73,16 @@ public class WrappedItem(Item item) : ShopItem(item)
                     Item.Quality--;
                 }
             }
-        }
 
-        if (Item.Name == "Sulfuras, Hand of Ragnaros")
-        {
-        }
-        else
-        {
-            Item.SellIn--;
-        }
-
-        if (Item.SellIn < 0)
-        {
-            if (Item.Name == "Backstage passes to a TAFKAL80ETC concert")
+            if (Item.Name == "Sulfuras, Hand of Ragnaros")
             {
-                Item.Quality -= Item.Quality;
             }
             else
+            {
+                Item.SellIn--;
+            }
+
+            if (Item.SellIn < 0)
             {
                 if (Item.Quality > 0)
                 {

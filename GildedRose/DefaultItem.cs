@@ -70,21 +70,13 @@ public class DefaultItem(Item item) : ShopItem(item)
 {
     public override void UpdateItem()
     {
-        DecreaseQuality();
-
         Item.SellIn--;
 
-        if (Item.SellIn < 0)
-        {
-            DecreaseQuality();
-        }
+        DecreaseQuality(Item.SellIn < 0 ? 2 : 1);
     }
 
-    private void DecreaseQuality()
+    private void DecreaseQuality(int amount = 1)
     {
-        if (Item.Quality > 0)
-        {
-            Item.Quality--;
-        }
+        Item.Quality = Math.Max(0, Item.Quality - amount);
     }
 }
